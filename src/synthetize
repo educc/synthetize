@@ -25,4 +25,4 @@ curl -H "Authorization: Bearer $(gcloud auth application-default print-access-to
     'languageCode': 'en-US',
     'name': 'en-US-Wavenet-D'
   }
-}" "https://texttospeech.googleapis.com/v1/text:synthesize" | ./tomp3.py
+}" "https://texttospeech.googleapis.com/v1/text:synthesize" | tomp3.py > $FILENAME

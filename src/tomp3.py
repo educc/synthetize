@@ -20,15 +20,15 @@ def get_audio_content_from_stdin():
 
 def write_audio_file(filename, content_base64):
     audio_content = base64.b64decode(content_base64)
-    with open(filename, 'w+b') as myfile:
-        myfile.write(audio_content)
+    sys.stdout.buffer.write(audio_content)
 
 def main():
     filename = "audio.mp3"
     if len(sys.argv) >= 2:
-        filename = sys.argv[1]
+        filename = sys.argv[1].strip()
 
     content_base64 = get_audio_content_from_stdin()
-    write_audio_file(filename, content_base64)
+    if content_base64:
+        write_audio_file(filename, content_base64)
 
 main()

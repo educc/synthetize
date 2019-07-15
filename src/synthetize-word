@@ -5,8 +5,9 @@ die () {
     exit 1
 }
 
-[ "$#" -eq 1 ] || die "2 argument required, 1 = text to speech"
+[ "$#" -eq 1 ] || die "1 argument required, 1 = text to speech"
 
 WORD=$1
+FILENAME=$(clean.py "$WORD")
 
-synthetize $WORD "${WORD}.mp3"
+synthetize "${WORD}" "${FILENAME}.mp3"
