@@ -1,0 +1,28 @@
+#!/bin/bash
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+[ "$#" -eq 2 ] || die "2 argument required, 1 = text to speech, 2 = filename"
+
+TEXT=$1
+FILENAME=$2
+
+curl -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
+  -H "Content-Type: application/json; charset=utf-8" \
+  --data "{
+  'audioConfig': {
+    'audioEncoding': 'MP3',
+    'pitch': 0,
+    'speakingRate': 1
+  },
+  'input': {
+    'text': '${TEXT}'
+  },
+  'voice': {
+    'languageCode': 'en-US',
+    'name': 'en-US-Wavenet-D'
+  }
+}" "https://texttospeech.googleapis.com/v1/text:synthesize" | ./tomp3.py

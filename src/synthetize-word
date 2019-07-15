@@ -1,0 +1,12 @@
+#!/bin/bash
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
+
+[ "$#" -eq 1 ] || die "2 argument required, 1 = text to speech"
+
+WORD=$1
+
+synthetize $WORD "${WORD}.mp3"
